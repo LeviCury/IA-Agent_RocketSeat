@@ -1,0 +1,80 @@
+pesquisa_e_roteiro:
+  description: >
+    Pesquise a fundo sobre o tema "{query}" no universo dos videogames.
+    Com base na pesquisa, elabore um roteiro detalhado para um vídeo de YouTube
+    com duração estimada de 10-15 minutos.
+
+    O roteiro DEVE conter:
+    1. **Título do Vídeo** - chamativo e otimizado para YouTube
+    2. **Gancho Inicial** (primeiros 30 segundos) - algo que prenda a atenção imediatamente
+    3. **Introdução** - apresentação do tema e do que será abordado
+    4. **Desenvolvimento** - dividido em seções claras com subtítulos, cada seção
+       contendo informações pesquisadas, opiniões fundamentadas e transições suaves
+    5. **Clímax/Destaque** - o momento mais impactante do vídeo
+    6. **Conclusão** - resumo, opinião final e call-to-action
+    7. **Indicações de edição** - sugestões de cortes, B-rolls, memes ou efeitos visuais
+
+    Use linguagem envolvente, tom conversacional e adequado ao público gamer.
+    O roteiro deve ser completo e pronto para gravação.
+  expected_output: >
+    Um roteiro completo e detalhado em português brasileiro, formatado em markdown,
+    contendo todas as seções solicitadas (título, gancho, introdução, desenvolvimento,
+    clímax, conclusão e indicações de edição). O roteiro deve ter no mínimo 1500 palavras.
+  agent: roteirista
+
+criacao_thumbnails:
+  description: >
+    Com base no roteiro produzido para o vídeo sobre "{query}", crie TRÊS opções
+    de thumbnails para YouTube.
+
+    Para cada thumbnail:
+    1. Gere a imagem usando a ferramenta DALL-E com um prompt detalhado em inglês
+    2. A imagem deve ter estilo profissional de thumbnail de YouTube gaming
+    3. Use elementos visuais do tema do vídeo (personagens, cenários, items icônicos)
+    4. Inclua composição que funcione no formato 16:9
+    5. Cores vibrantes e alto contraste para se destacar no feed
+
+    Forneça para cada thumbnail:
+    - O prompt utilizado para gerar a imagem
+    - Uma descrição da thumbnail gerada
+    - A URL da imagem gerada
+    - Por que essa thumbnail funcionaria bem
+  expected_output: >
+    Três thumbnails geradas com suas respectivas URLs, prompts utilizados,
+    descrições e justificativas de por que cada uma funcionaria bem para o vídeo.
+    Formato organizado e claro.
+  agent: criador_thumbnail
+  context:
+    - pesquisa_e_roteiro
+
+revisao_final:
+  description: >
+    Revise todo o material produzido para o vídeo sobre "{query}":
+
+    1. **Revisão do Roteiro:**
+       - Corrija erros gramaticais e de ortografia
+       - Melhore a fluidez e coesão do texto
+       - Verifique se o tom está adequado para o público gamer
+       - Confirme que todas as seções estão presentes e bem desenvolvidas
+       - Adicione sugestões de melhoria quando necessário
+
+    2. **Seleção da Thumbnail:**
+       - Analise as três opções de thumbnail
+       - Escolha a melhor opção com base em: impacto visual, relevância ao conteúdo,
+         potencial de CTR e adequação ao público-alvo
+       - Justifique sua escolha
+
+    3. **Compilação Final:**
+       - Monte o documento final contendo o roteiro revisado e a thumbnail escolhida
+       - Formate de maneira profissional e organizada
+  expected_output: >
+    Um documento final completo em português brasileiro contendo:
+    1. O roteiro revisado e aprimorado (com anotações de mudanças importantes)
+    2. A thumbnail escolhida com URL e justificativa detalhada da escolha
+    3. Um breve parecer sobre a qualidade geral do conteúdo
+    Tudo formatado em markdown profissional e pronto para uso.
+  agent: revisor
+  context:
+    - pesquisa_e_roteiro
+    - criacao_thumbnails
+  output_file: output/resultado_final.md
